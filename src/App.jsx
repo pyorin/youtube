@@ -25,81 +25,77 @@ function App() {
       .then((d) => setYoutube(d.data.format));
   };
 
-  const cardVideo = video.map ? (
-    video.map((video, i) => {
-      return (
-        <div key={i}>
-          {video.bestThumbnail !== undefined ? (
-            <div key={i} className="mt-4 border shadow-md p-2 rounded-md">
-              <div className="relative">
-                <img
-                  src={video.bestThumbnail["url"]}
-                  className="w-full h-full mt-2"
-                />
-                <div className="absolute right-2 bottom-2 backdrop-blur bg-indigo-500 py-1 px-6 rounded-md font-semibold text-white">
-                  {video.duration}
+  const cardVideo = video.map
+    ? video.map((video, i) => {
+        return (
+          <div key={i}>
+            {video.bestThumbnail !== undefined ? (
+              <div key={i} className="mt-4 border shadow-md p-2 rounded-md">
+                <div className="relative">
+                  <img
+                    src={video.bestThumbnail["url"]}
+                    className="w-full h-full mt-2"
+                  />
+                  <div className="absolute right-2 bottom-2 backdrop-blur bg-indigo-500 py-1 px-6 rounded-md font-semibold text-white">
+                    {video.duration}
+                  </div>
+                </div>
+                <div className="flex items-center mt-2 space-x-3">
+                  <img
+                    src={video.author.bestAvatar["url"]}
+                    className="rounded-full object-cover scale-75"
+                  />
+                  <div>
+                    <a
+                      href={video.url}
+                      target="_blank"
+                      className="mt-2 font-semibold"
+                    >
+                      {video.title}
+                    </a>
+                    <p target="_blank" className="opacity-60">
+                      {video.author.name} | {video.uploadedAt}
+                    </p>
+                    <p>{video.views.toLocaleString()} views</p>
+                  </div>
+                </div>
+                <div className="flex justify-between my-3">
+                  <div className="space-x-3">
+                    <a
+                      href={video.url}
+                      target="_blank"
+                      className="py-1 px-6 bg-indigo-500 text-white shadow-md rounded-md"
+                    >
+                      Tonton
+                    </a>
+                    <button
+                      onClick={() => handleClick(video.url)}
+                      value="download"
+                      target="_blank"
+                      href={youtube.length > 0 ? youtube[0].url : null}
+                      className="inline-block py-1 px-6 bg-indigo-500 text-white shadow-md rounded-md"
+                    >
+                      Download
+                    </button>
+                  </div>
+                  <div>
+                    <a
+                      className={
+                        youtube.length > 0 ? "px-3 inline-block" : "hidden"
+                      }
+                      href={youtube.length > 0 ? youtube[0].url : null}
+                      target="_blank"
+                    >
+                      <img src={Downloads} width={30} height={30} />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center mt-2 space-x-3">
-                <img
-                  src={video.author.bestAvatar["url"]}
-                  className="rounded-full object-cover scale-75"
-                />
-                <div>
-                  <a
-                    href={video.url}
-                    target="_blank"
-                    className="mt-2 font-semibold"
-                  >
-                    {video.title}
-                  </a>
-                  <p target="_blank" className="opacity-60">
-                    {video.author.name} | {video.uploadedAt}
-                  </p>
-                  <p>{video.views.toLocaleString()} views</p>
-                </div>
-              </div>
-              <div className="flex justify-between my-3">
-                <div className="space-x-3">
-                  <a
-                    href={video.url}
-                    target="_blank"
-                    className="py-1 px-6 bg-indigo-500 text-white shadow-md rounded-md"
-                  >
-                    Tonton
-                  </a>
-                  <button
-                    onClick={() => handleClick(video.url)}
-                    value="download"
-                    target="_blank"
-                    className="inline-block py-1 px-6 bg-indigo-500 text-white shadow-md rounded-md"
-                    download
-                  >
-                    Download
-                  </button>
-                </div>
-                <div>
-                  <a
-                    className={
-                      youtube.length > 0 ? "px-3 inline-block" : "hidden"
-                    }
-                    href={youtube.length > 0 ? youtube[0].url : null}
-                    target="_blank"
-                  >
-                    <img src={Downloads} width={30} height={30} />
-                  </a>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <h1>api error coba lagi</h1>
-          )}
-        </div>
-      );
-    })
-  ) : (
-    <h1>api error coba lagi</h1>
-  );
+            ) : null}
+          </div>
+        );
+      })
+    : null;
 
   const handleClose = () => {
     setWarn(true);
